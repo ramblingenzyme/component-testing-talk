@@ -1,0 +1,12 @@
+{
+  "name": "component-testing-talk",
+  "version": "1.0.0",
+  "main": "index.mdx",
+  "license": "MIT",
+  "scripts": {
+    "start": "mdx-deck index.mdx"
+  },
+  "devDependencies": {
+    "mdx-deck": "^3.0.9"
+  }
+}
