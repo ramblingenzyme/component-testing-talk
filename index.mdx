@@ -1,29 +1,50 @@
-import { swiss } from '@mdx-deck/themes'
+import { swiss } from '@mdx-deck/themes';
+import { Image, Split } from "mdx-deck";
 import Title from "./components/Title";
+import me from "./static/images/satvik.jpg"
+import letMeIn from "./static/images/let-me-in.jpg"
 
-# <Title />
+export const theme = swiss;
 
-Satvik Sharma
+<Title />
+
+---
+
+<Split>
+
+<img src={me} />
+
+* Satvik Sharma
+* Developer at Easy Agile
+* Occasional flower crown wearer
+
+</Split>
 
 ---
 
 # What?
-* Custom date picker field built using Atlaskit components
-* Use it in EAR and a few other places, for min/max date ranges
-* Have a class based component with bugs, refactored to a "functional" component with hooks
-
-# Why?
-* Atlaskit's is...bad
-* Calendar is such a powerful component and Datepicker hides it's powers.
+* Custom date picker field built using:
+    * Atlaskit components
+    * Hooks
+* Supports setting min/max dates
 
 ---
 
-* LET ME IIIN
+# Why?
+* Have a class based component which is buggy and fixing anything always seemed to break something else.
+* We would use Atlaskit's but it's limiting
+* Calendar is such a powerful component and Datepicker hides it's powers
+
+---
+
+<Image src={letMeIn} size="contain" />
 
 ---
 
 * I'll do it myself
 
+---
+
 # Testing, finally
 * Want to test the feel/experience not the logic
-* the experience is stable, how we get there might change
+* The expected experience is known, how we get there might change
