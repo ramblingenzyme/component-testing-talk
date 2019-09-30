@@ -1,5 +1,5 @@
 import { swiss } from '@mdx-deck/themes';
-import { Image, Split } from "mdx-deck";
+import { Appear, Image, Notes, Split } from "mdx-deck";
 import Title from "./components/Title";
 import me from "./static/images/satvik.jpg"
 import letMeIn from "./static/images/let-me-in.jpg"
@@ -25,15 +25,32 @@ export const theme = swiss;
 # What?
 * Custom date picker field built using:
     * Atlaskit components
-    * Hooks
+    * React + Hooks
 * Supports setting min/max dates
+
+<Notes>
+
+* Pick a date from a calendar dropdown between optional date boundaries
+* Atlaskit is Atlassian's UI library
+
+</Notes>
 
 ---
 
 # Why?
-* Have a class based component which is buggy and fixing anything always seemed to break something else.
-* We would use Atlaskit's but it's limiting
+* Existing buggy implementation
+* Can't use Atlaskit's
+* Limited API surface
+
+<Notes>
+
+* Actually a rewrite of an existing component we've built
+* Got fed up of the bugs, we'd fix one bug, introduce another
+* 250 line Class component handling everything at once
+* Atlaskit's date picker doesn't support min/max dates out of the box
 * Calendar is such a powerful component and Datepicker hides it's powers
+
+</Notes>
 
 ---
 
@@ -41,10 +58,96 @@ export const theme = swiss;
 
 ---
 
-* I'll do it myself
+# How?
+
+* Typescript
+* Storybook
+* React hooks
+
+<ul>
+    <li>@testing-library/react</li>
+    <Appear>
+        <ul>
+            <li>The library formerly known as react-testing-library</li>
+        </ul>
+    </Appear>
+</ul>
+
+<Notes>
+
+* Typescript
+    * made sure I was using the Atlaskit components correctly
+    * sped up the dev loop because I didn't have to refer to the API docs all the time
+* Storybook
+    * for me there wasn't a huge barrier to linking to our app and trying out configurations
+        * still great to have
+    * let me write a different scenarios and keep them around
+    * Let me turn experimenting with the component into tests easily
+* React hooks
+    * let me seperate the concerns of the component
+        * integrate them internally instead of layers of wrapping paper
+    * open/close functionality
+    * input validity
+    * syncing input and calendar input
+    * handling disabling dates and calendar state
+
+</Notes>
 
 ---
 
-# Testing, finally
-* Want to test the feel/experience not the logic
-* The expected experience is known, how we get there might change
+# @testing-library
+* Not specific to a test runner
+* Wrappers for:
+    * React
+    * Angular
+    * Vue
+    * And more!
+
+<Notes>
+
+* Best used with Jest regardless
+* Extra wrappers:
+    * React Native
+    * Svelte
+    * Reason
+    * Puppeteer
+    * Cypress
+
+</Notes>
+
+---
+
+# @testing-library/react
+
+* Want to test the feel/experience
+* The expected experience is known, how we get there:
+    * might change
+    * is not always as clear
+
+<Notes>
+
+* Made sure I was testing the right things, what's rendered, not the implementation
+* The connection between the implementation and the experience wasn't clear
+
+</Notes>
+
+---
+
+# Approach
+
+> The more your tests resemble the way your software is used, the more confidence they can give you.
+
+> &mdash; *Kent C. Dodds*
+
+<Notes>
+
+    * This quote is at the top of testing library's Guiding Principles page
+    * Test with DOM nodes
+    * Don't use component instances if possible
+    * Test how the user would use it
+
+</Notes>
+
+---
+
+#
