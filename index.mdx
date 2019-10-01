@@ -1,10 +1,11 @@
-import { swiss } from '@mdx-deck/themes';
-import { Appear, Image, Notes, Split } from "mdx-deck";
+import base, { aspect, prism } from '@mdx-deck/themes';
+import { Appear, FullScreenCode, Horizontal, Image, Notes, Split } from "mdx-deck";
 import Title from "./components/Title";
-import me from "./static/images/satvik.jpg"
-import letMeIn from "./static/images/let-me-in.jpg"
+import Counter from "./components/Counter";
+import me from "./static/images/satvik.jpg";
+import letMeIn from "./static/images/let-me-in.jpg";
 
-export const theme = swiss;
+export const theme = prism(base);
 
 <Title />
 
@@ -14,9 +15,13 @@ export const theme = swiss;
 
 <img src={me} />
 
+<div style={{ textAlign: "left", marginLeft: "20px" }}>
+
 * Satvik Sharma
 * Developer at Easy Agile
 * Occasional flower crown wearer
+
+</div>
 
 </Split>
 
@@ -63,15 +68,14 @@ export const theme = swiss;
 * Typescript
 * Storybook
 * React hooks
+* @testing-library/jest-dom
 
-<ul>
-    <li>@testing-library/react</li>
-    <Appear>
-        <ul>
-            <li>The library formerly known as react-testing-library</li>
-        </ul>
-    </Appear>
-</ul>
+<Appear>
+    <div>
+        <p>@testing-library/react</p>
+        <p>The library formerly known as react-testing-library</p>
+    </div>
+</Appear>
 
 <Notes>
 
@@ -84,12 +88,16 @@ export const theme = swiss;
     * let me write a different scenarios and keep them around
     * Let me turn experimenting with the component into tests easily
 * React hooks
-    * let me seperate the concerns of the component
+    * let me separate the concerns of the component
         * integrate them internally instead of layers of wrapping paper
     * open/close functionality
     * input validity
     * syncing input and calendar input
     * handling disabling dates and calendar state
+* jest-dom
+    * Jest matchers for the DOM.
+    * Made assertions much more intuitive
+    * Will be using in examples later on
 
 </Notes>
 
@@ -117,14 +125,17 @@ export const theme = swiss;
 
 ---
 
-# @testing-library/react
+# Approach
 
-* Want to test the feel/experience
-* The expected experience is known, how we get there:
-    * might change
-    * is not always as clear
+> The more your tests resemble the way your software is used, the more confidence they can give you.
+> &mdash; *Kent C. Dodds*
 
 <Notes>
+
+* This quote is at the top of testing library's Guiding Principles page
+* Test with DOM nodes
+* Don't use component instances if possible
+* Test how the user would use it
 
 * Made sure I was testing the right things, what's rendered, not the implementation
 * The connection between the implementation and the experience wasn't clear
@@ -132,22 +143,54 @@ export const theme = swiss;
 </Notes>
 
 ---
+<FullScreenCode>
 
-# Approach
+```jsx
+const HelloWorldSFC = (props) => <p> Hello world! </p>);
 
-> The more your tests resemble the way your software is used, the more confidence they can give you.
+const HelloWorldFC = (props) => {
+    const [displayValue] = useState("Hello world!");
+    return <p>{displayValue}</p>;
+}
 
-> &mdash; *Kent C. Dodds*
+class HelloWorld extends React.Component {
+    render() {
+        return <p>Hello world!</p>;
+    }
+}
+
+describe("Hello world!", () => {
+    it("should render", () => {
+        const components = [
+            HelloWorldSFC,
+            HelloWorldFC,
+            HelloWorld
+        ];
+
+        for (const Component of components) {
+            const { getByText } = render(<Component />);
+            expect(getByText("Hello world!")).toBeInTheDocument();
+        }
+    });
+});
+
+```
+
+</FullScreenCode>
 
 <Notes>
 
-    * This quote is at the top of testing library's Guiding Principles page
-    * Test with DOM nodes
-    * Don't use component instances if possible
-    * Test how the user would use it
+* Each of these components look the same to the user
+* The test doesn't care about the implementation.
+* Majority of my tests used getByText or similar and toBeInTheDocument.
 
 </Notes>
 
 ---
+// Put funny triumphant image here
 
-#
+---
+
+# Counter
+
+<Counter />
