@@ -36,8 +36,7 @@ describe("Counter", () => {
 
         for (let i = 0; i < 10; i++) {
             fireEvent.click(addButton);
-            const value = (i + 1).toString();
-            expect(getByText(value)).toBeInTheDocument()
+            expect(getByText(`${i + 1}`)).toBeInTheDocument()
         }
-    })
+    });
 })
