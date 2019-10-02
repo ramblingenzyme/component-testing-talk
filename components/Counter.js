@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 
-const buttonStyle = { fontSize: "30px", fontStyle: "bold" }
+const buttonStyle = { fontSize: "30px", fontStyle: "bold" };
+const pStyle = { textAlign: "center", fontStyle: "bold" };
 
 const Counter = (props) => {
     const [value, setValue] = useState(0);
@@ -9,9 +10,23 @@ const Counter = (props) => {
 
     return (
         <div>
-            <button style={buttonStyle} disabled={value === 0} onClick={subtractOne}>&ndash;</button>
-            <p style={{ textAlign: "center", fontStyle: "bold" }}>{value}</p>
-            <button style={buttonStyle} disabled={value === 10} onClick={addOne}>+</button>
+            <button
+                aria-label="subtract"
+                disabled={value === 0}
+                onClick={subtractOne}
+                style={buttonStyle}
+            >
+                &ndash;
+            </button>
+            <p title="value" style={pStyle}>{value}</p>
+            <button
+                aria-label="add"
+                disabled={value === 10}
+                onClick={addOne}
+                style={buttonStyle}
+            >
+                +
+            </button>
         </div>
     );
 }

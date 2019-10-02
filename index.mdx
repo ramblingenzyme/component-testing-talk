@@ -146,30 +146,33 @@ export const theme = prism(base);
 <FullScreenCode>
 
 ```jsx
-const HelloWorldSFC = (props) => <p> Hello world! </p>);
+const HelloWorldSFC = (props) => <p>Hello world!</p>;
 
 const HelloWorldFC = (props) => {
     const [displayValue] = useState("Hello world!");
     return <p>{displayValue}</p>;
 }
 
-class HelloWorld extends React.Component {
+class HelloWorldClass extends React.Component {
     render() {
         return <p>Hello world!</p>;
     }
 }
 
+const components = [
+    HelloWorldSFC,
+    HelloWorldFC,
+    HelloWorldClass
+];
+
 describe("Hello world!", () => {
     it("should render", () => {
-        const components = [
-            HelloWorldSFC,
-            HelloWorldFC,
-            HelloWorld
-        ];
-
         for (const Component of components) {
             const { getByText } = render(<Component />);
             expect(getByText("Hello world!")).toBeInTheDocument();
+
+            // Clean up the DOM
+            cleanup()
         }
     });
 });
@@ -194,3 +197,60 @@ describe("Hello world!", () => {
 # Counter
 
 <Counter />
+
+<Notes>
+
+* Play with the component
+* Ask what we'd test
+
+</Notes>
+
+---
+
+<FullScreenCode>
+
+```jsx
+import "@testing-library/jest-dom/extend-expect"
+
+import React from "react"
+import { fireEvent, render } from "@testing-library/react"
+
+it("should render 0 initially", () => {
+    const { getByText } = render(<Counter />);
+    const counterValue = getByText("0");
+    expect(counterValue).toBeInTheDocument();
+});
+
+it("should have a disabled subtract button when rendering 0", () => {
+    const { getByText } = render(<Counter />);
+    const subtractButton = getByText("–");
+    expect(subtractButton).toBeDisabled();
+});
+
+it("should have a disabled add button when rendering 10", () => {
+    const { getByText, getByTitle } = render(<Counter />);
+    const addButton = getByText("+");
+
+    for (let i = 0; i < 10; i++) {
+        fireEvent.click(addButton);
+    }
+
+    expect(getByText("10")).toBeInTheDocument()
+    expect(addButton).toBeDisabled();
+});
+
+```
+
+</FullScreenCode>
+
+---
+
+# Conclusions
+
+* Still should only test components if needed
+
+<Notes>
+
+* Probably still the only component complicated enough for us to bother testing
+
+</Notes>
