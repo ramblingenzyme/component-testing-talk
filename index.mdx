@@ -4,6 +4,8 @@ import Title from "./components/Title";
 import Counter from "./components/Counter";
 import me from "./static/images/satvik.jpg";
 import letMeIn from "./static/images/let-me-in.jpg";
+import goodPlace from "./static/images/good-place.gif";
+import confused from "./static/images/confused.gif";
 
 export const theme = prism(base);
 
@@ -171,7 +173,7 @@ describe("Hello world!", () => {
             const { getByText } = render(<Component />);
             expect(getByText("Hello world!")).toBeInTheDocument();
 
-            // Clean up the DOM
+            // Clean up the DOM, this is usually done for us between tests automatically
             cleanup()
         }
     });
@@ -190,7 +192,12 @@ describe("Hello world!", () => {
 </Notes>
 
 ---
-// Put funny triumphant image here
+
+<Image src={goodPlace} size="contain" />
+
+---
+
+<Image src={confused} size="contain" />
 
 ---
 
