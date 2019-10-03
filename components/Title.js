@@ -11,5 +11,5 @@ const CONTENT = [
 export default () => {
     const step = useSteps(2);
 
-    return <h1>{CONTENT[step]}</h1>;
+    return <h1 style={{ marginLeft: "20px" }} >{CONTENT[step]}</h1>;
 }

@@ -34,6 +34,8 @@ describe("Counter", () => {
         const { getByText, getByTitle } = render(<Counter />);
         const addButton = getByText("+");
 
+        expect(getByText("0")).toBeInTheDocument()
+
         for (let i = 0; i < 10; i++) {
             fireEvent.click(addButton);
             expect(getByText(`${i + 1}`)).toBeInTheDocument()
