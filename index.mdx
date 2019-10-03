@@ -30,28 +30,6 @@ export const theme = prism(base);
 
 ---
 
-# What is component testing?
-* Testing UI Components
-* Snapshot testing
-* Visual regression
-* **Asserting against the DOM**
-
-<Notes>
-
-* Not talking about snapshot testing
-    * it's a bit brittle for a UI component
-    * you have to ensure the test contract on either end
-* Visual regression
-    * better for simple components that should be styled consistently
-* Interaction testing
-    * What we are talking about
-    * Makes sure the interactions are consistent with mental model
-    * Can test your state transitions
-
-</Notes>
-
----
-
 # What are we testing?
 * Custom date picker field built using:
     * Atlaskit components
@@ -73,7 +51,6 @@ export const theme = prism(base);
 
 <Notes>
 
-* Actually a rewrite of an existing component we've built
 * Basically tech debt, it always took forever to get up to speed
 * Got fed up of the bugs, we'd fix one bug, introduce another
 * 250 line Class component handling everything at once
@@ -88,6 +65,14 @@ export const theme = prism(base);
 
 <Image src={letMeIn} size="contain" />
 
+<Notes>
+
+* Going to go through the tools used to build and test the picker,
+    * then some examples of tests
+    * and retro on the actual component
+
+</Notes>
+
 ---
 
 # How?
@@ -96,13 +81,8 @@ export const theme = prism(base);
 * Storybook
 * React hooks
 * @testing-library/jest-dom
-
-<Appear>
-    <div>
-        <p>@testing-library/react</p>
-        <p>The library formerly known as react-testing-library</p>
-    </div>
-</Appear>
+* @testing-library/react
+    * The library formerly known as react-testing-library
 
 <Notes>
 
@@ -115,6 +95,22 @@ export const theme = prism(base);
     * let me write a different scenarios and keep them around
     * Let me turn experimenting with the component into tests easily
     * Apologise to Philip, I'd forgotten how nice it was when talking about it last week
+
+</Notes>
+
+---
+
+# How?
+
+* Typescript
+* Storybook
+* React hooks
+* @testing-library/jest-dom
+* @testing-library/react
+    * The library formerly known as react-testing-library
+
+<Notes>
+
 * React hooks
     * let me separate the concerns of the component
         * integrate them internally instead of layers of wrapping paper
@@ -126,6 +122,28 @@ export const theme = prism(base);
     * Jest matchers for the DOM.
     * Made assertions much more intuitive
     * Will be using in examples later on
+
+</Notes>
+
+---
+
+# What is component testing?
+* Testing UI Components
+* Snapshot testing
+* Visual regression
+* **Asserting against the DOM**
+
+<Notes>
+
+* Not talking about snapshot testing
+    * it's a bit brittle for a UI component
+    * you have to ensure the test contract on either end
+* Visual regression
+    * better for simple components that should be styled consistently
+* Interaction testing
+    * What we are talking about
+    * Makes sure the interactions are consistent with mental model
+    * Can test your state transitions
 
 </Notes>
 
@@ -164,7 +182,6 @@ export const theme = prism(base);
 * Test with DOM nodes
 * Doesn't expose component instances or methods
 * Test how the user would use it
-
 * Made sure I was testing the right things, what's rendered, not the implementation
 * The connection between the implementation and the experience wasn't clear
 
@@ -221,6 +238,12 @@ describe("Hello world!", () => {
 ---
 
 <Image src={goodPlace} size="contain" />
+
+<Notes>
+
+* Great and all but it's all static
+
+</Notes>
 
 ---
 
@@ -322,12 +345,15 @@ it("should render 0 - 10", () => {
 # Conclusions
 
 * Still should only test components if needed
-* Have to teach your test runner JSX
+* Test runner needs to know JSX
+* No garden paths
 
 <Notes>
 
 * Probably still the only component complicated enough for us to bother testing
+* Babel is OOTB, Typescript is harder
 * Let me see the forest for the trees
+* Stay focused on the task, limited tools, more likely to pick the right one
 
 </Notes>
 
@@ -340,17 +366,14 @@ it("should render 0 - 10", () => {
 * Kent C. Dodds testing trophy vs Martin Fowler's testing pyramid
     * Spend time on tests with high RoI instead of building based on difficulty to build/maintain
     * Adds static testing below Unit, meaning static analysis tools such as Typescript, Eslint
-
 * Compared to Enzyme, I can't really say, I've only used it once before.
 * But from what I do know, the focused API is great. No deep vs shallow render decision to make.
-
 * Extra wrappers:
     * React Native
     * Svelte
     * Reason
     * Puppeteer
     * Cypress
-
 * Queries are a
     * variant: getBy, getAllBy, queryBy, findAllBy
     * and a target: labelText, placeholderText, altText, displayValue, role, testId,
